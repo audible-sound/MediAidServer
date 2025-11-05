@@ -1,0 +1,6 @@
+@MediAidServer_HostAddress = http://localhost:5100
+
+GET {{MediAidServer_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

@@ -13,12 +13,6 @@ psql -U postgres
 # Create database
 CREATE DATABASE mediaid;
 
-# Create a user (replace 'yourpassword' with your own)
-CREATE USER mediaiduser WITH PASSWORD 'yourpassword';
-
-# Grant privileges
-GRANT ALL PRIVILEGES ON DATABASE mediaid TO mediaiduser;
-
 # Exit
 \q
 ```
@@ -33,6 +27,9 @@ DB_PORT=5432
 DB_NAME=mediaid
 DB_USERNAME=mediaiduser
 DB_PASSWORD=yourpassword
+SECRET_KEY=your-secret-key-for-password-hashing
+JWT_SECRET_KEY=your-jwt-secret-key-minimum-32-characters-long
+JWT_EXPIRATION_MINUTES=60
 ```
 
 **Note:** Replace the placeholder values with your actual database credentials. The `.env.example` file contains a template you can copy.
@@ -41,4 +38,19 @@ DB_PASSWORD=yourpassword
 
 ```bash
 dotnet tool install --global dotnet-ef
+```
+
+## Migrate Models
+```bash
+# Create initial migration
+dotnet ef migrations add InitialCreate
+
+# Apply migration to database
+dotnet ef database update
+
+# Remove migration files
+dotnet ef migrations remove
+
+# Revert all migrations
+dotnet ef database update 0
 ```
